@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/joshrotenberg/cercatore/compare/v0.1.1...v0.1.2) (2026-04-09)
+
+
+### Features
+
+* add benchmarks and performance section to README ([#3](https://github.com/joshrotenberg/cercatore/issues/3)) ([c58e98e](https://github.com/joshrotenberg/cercatore/commit/c58e98e973dfb4131cd954301a9a33f63db313fd))
+
 ## [0.1.1](https://github.com/joshrotenberg/cercatore/compare/v0.1.0...v0.1.1) (2026-04-09)
 
 
