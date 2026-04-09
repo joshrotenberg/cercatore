@@ -96,6 +96,32 @@ end
 Cercatore.new(tokenizer: MyTokenizer)
 ```
 
+## Performance
+
+Cercatore is designed for in-process search over small to medium datasets --
+product catalogs, help articles, configuration entries, user-generated tags,
+that kind of thing. It is not a replacement for Elasticsearch or Meilisearch.
+
+Benchmarks on an M4 Pro, 100-word vocabulary, documents of 10-100 words each:
+
+| Documents | Index time | Exact query | Fuzzy query |
+|----------:|------------|-------------|-------------|
+| 1,000 | 0.1s | 0.3ms | 0.6ms |
+| 10,000 | 2.2s | 3.7ms | 4.0ms |
+| 100,000 | 28s | 48ms | 52ms |
+
+A few things to know:
+
+- Indexing is the slow part. The index is an immutable struct, so every `add`
+  builds a new version. For bulk loading, use `add_all/2`.
+- Query time scales linearly with document count since every document is scored.
+- Fuzzy query overhead is small when the vocabulary is small. With a large,
+  diverse vocabulary, fuzzy expansion does more work.
+- The index lives in process memory. A 10k-document index is fine. A
+  million-document corpus is not what this is for.
+
+Run `mix run bench/bench.exs` to benchmark on your hardware.
+
 ## Installation
 
 ```elixir
